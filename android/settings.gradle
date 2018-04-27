@@ -1,0 +1,3 @@
+rootProject.name = 'RNGrid'
+
+include ':app'
