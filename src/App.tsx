@@ -68,15 +68,12 @@ export default class App extends Component<Props, State> {
 
     if (gridItemsBgColors[index+1]) {
       gridItemsBgColors[index] = gridItemsBgColors[index+1];
-      nextState = Object.assign({}, this.state, { gridItemsBgColors: gridItemsBgColors });
+      this._handleSetGridItemsBgColor(gridItemsBgColors);
     }
-
-    this.setState(nextState);
   }
 
   _handleSetGridItemsBgColor = (gridItemsBgColors) => {
-    let nextState = Object.assign({}, this.state, { gridItemsBgColors: gridItemsBgColors });
-    this.setState(nextState);
+    this.setState({gridItemsBgColors});
   }
 
   render() {

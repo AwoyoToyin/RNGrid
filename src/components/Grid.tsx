@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Colors } from '../constants';
 
 const styles = StyleSheet.create({
   gridRow: {
