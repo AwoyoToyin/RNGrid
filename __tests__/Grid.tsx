@@ -11,7 +11,9 @@ it('renders the supplied number of grids correctly', () => {
       rows={3}
       cols={3}
       width={30}
-      colors={['grey', 'brown', 'pink']}
+      colorSequence={['grey', 'brown', 'pink']}
+      gridItemsBgColors={jest.fn}
+      setGridItemsBgColor={jest.fn}
       onItemClick={jest.fn}
     />
   ).toJSON();
