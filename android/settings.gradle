@@ -1,3 +1,9 @@
 rootProject.name = 'RNGrid'
 
 include ':app'
+
+include ':react-native-hockeyapp',
+      ':app' project
+      (':react-native-hockeyapp').projectDir =
+      new File(rootProject.projectDir,
+      '../node_modules/react-native-hockeyapp/android')
