@@ -49,6 +49,7 @@ export default class App extends Component<Props, State> {
   _handleLayoutChanged = () => {
     // get current width
     const width = Dimensions.get('window').width;
+    console.log('Width: ', width);
 
     /**
      * Re-calculate each grid size
@@ -57,7 +58,7 @@ export default class App extends Component<Props, State> {
      * Subtract this extra from the current width to get the actual width we're working with
      * Divide the result by the number of columns
      */
-    const gridWidth = Math.round(width - (this.cols * 2)) / this.cols;
+    const gridWidth = Math.floor((width - (this.cols * 2)) / this.cols);
     // update the gridWidth in the state for use
     this.setState({ gridWidth });
   }
