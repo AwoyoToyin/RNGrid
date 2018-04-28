@@ -1,0 +1,18 @@
+PODS:
+  - HockeySDK (5.1.2):
+    - HockeySDK/DefaultLib (= 5.1.2)
+  - HockeySDK/DefaultLib (5.1.2)
+
+DEPENDENCIES:
+  - HockeySDK
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - HockeySDK
+
+SPEC CHECKSUMS:
+  HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
+
+PODFILE CHECKSUM: 51c4b84868c3b8b00b6f2342433259bdc2ec5378
+
+COCOAPODS: 1.5.0

@@ -6,7 +6,7 @@
  * https://github.com/emin93/react-native-template-typescript
  */
 import React, { Component } from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { Dimensions, Platform, ScrollView, StyleSheet } from 'react-native';
 import HockeyApp from 'react-native-hockeyapp';
 
 import { Grid } from './components';
@@ -43,7 +43,11 @@ export default class App extends Component<Props, State> {
   }
 
   componentWillMount() {
-    HockeyApp.configure('6d684cdaed124b89acce0011e8aeb939', true);
+    if (Platform.OS === 'ios') {
+      HockeyApp.configure('97de88054b9b4a488a808bf077ca2338', true);
+    } else {
+      HockeyApp.configure('6d684cdaed124b89acce0011e8aeb939', true);
+    }
   }
 
   componentDidMount() {
