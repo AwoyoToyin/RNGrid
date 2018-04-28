@@ -24,4 +24,4 @@ Grid number 43 clicked:
 
 Grid number 10, 25 and 40 clicked:
 
-<img src="src/assets/snapshots/android-10-25-40-clicked.png" alt="Android Clicked" width="200"/>)
+<img src="src/assets/snapshots/android-10-25-40-clicked.png" alt="Android Clicked" width="200"/>
