@@ -7,6 +7,7 @@
  */
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import HockeyApp from 'react-native-hockeyapp';
 
 import { Grid } from './components';
 import { Colors } from './constants';
@@ -39,6 +40,15 @@ export default class App extends Component<Props, State> {
       colorSequence: Colors.sequence, // holds available colorSequence
       gridItemsBgColors:  Colors.sequence // holds current available Grid Items background colors
     }
+  }
+
+  componentWillMount() {
+    HockeyApp.configure('6d684cdaed124b89acce0011e8aeb939', true);
+  }
+
+  componentDidMount() {
+    HockeyApp.start();
+    HockeyApp.checkForUpdate(); // optional
   }
 
   /**
