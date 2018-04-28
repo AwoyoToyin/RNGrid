@@ -23,52 +23,30 @@ interface Props {
   rows: number;
   cols: number;
   width: number;
-};
-
-interface State {
   colorSequence: Array<string>;
-  gridBgColors: Array<string>;
+  gridItemsBgColors: Array<string>;
+  setGridItemsBgColor: any;
+  onItemClick: any;
 };
 
-export default class Grid extends Component<Props, State>  {
+const _renderItems = (props) => {
 
-  constructor(props) {
-    super(props);
+  // destructure the properties for easier use
+  const { rows, cols, width, gridItemsBgColors, colorSequence, setGridItemsBgColor, onItemClick } = props;
 
-    this.state = {
-      colorSequence: Colors.sequence,
-      gridBgColors:  Colors.sequence
-    }
-  }
+  // the maximum number of grids to be created
+  const max = rows * cols;
 
-  _handleGridItemClicked = (index: number) => {
-    let { gridBgColors } = this.state;
-    console.log('Grid Colors: ', gridBgColors);
+  // holds the grids
+  const grids = [];
 
-    if (gridBgColors[index+1]) {
-      gridBgColors[index] = gridBgColors[index+1];
-      this.setState({ gridBgColors }, function () {
-        console.log('Clicked: ', this.state);
-      });
-    }
-  }
+  // set current backgroundColorindex
+  let bgColorIndex = 1;
 
-  _renderItems = () => {
+  for (let i = 1; i <= max; i++) {
 
-    // destructure the properties for easier use
-    const { rows, cols, width } = this.props;
-    let { gridBgColors, colorSequence } = this.state;
-  
-    // the maximum number of grids to be created
-    const max = rows * cols;
-  
-    // holds the grids
-    const grids = [];
-  
-    // set current backgroundColorindex
-    let bgColorIndex = 1;
-  
-    for (let i = 1; i <= max; i++) {
+    /** If current index exists in the colors array, set the grid item */
+    if (!gridItemsBgColors[i]) {
       /**
        * If the current index is equals to the number of columns required or,
        * If the current index is a multiple of the columns required
@@ -79,43 +57,48 @@ export default class Grid extends Component<Props, State>  {
        */
       if ((i === cols) || ((i % cols) === 0)) {
         bgColorIndex = 0;
-        gridBgColors[i] = colorSequence[cols];
+        gridItemsBgColors[i] = colorSequence[cols];
       } else {
-        gridBgColors[i] = colorSequence[bgColorIndex];
+        gridItemsBgColors[i] = colorSequence[bgColorIndex];
       }
   
-      {() => this.setState({gridBgColors})};
-  
-      grids.push(
-        <View key={i}>
-  
-          <TouchableOpacity onPress={() => this._handleGridItemClicked(i)}>
-            <View
-              style={[styles.gridItem, {
-                width: width,
-                height: width,
-                backgroundColor: this.state.gridBgColors[i]
-              }]}
-            >
-              <Text style={styles.text}>{i}</Text>
-            </View>
-          </TouchableOpacity>
-  
-        </View>
-      );
-  
+      // increment background color index for next round
       bgColorIndex++;
-    }
   
-    return grids;
-  }
+      // set the current grid item background color in the state
+      {() => setGridItemsBgColor(gridItemsBgColors)}
+    }
 
-  render() {
-    console.log('GridBGColors: ', this.state.gridBgColors);
-    return (
-      <View style={styles.gridRow}>
-        {this._renderItems()}
+    grids.push(
+      <View key={i}>
+
+        <TouchableOpacity onPress={() => onItemClick(i)}>
+          <View
+            style={[styles.gridItem, {
+              width: width,
+              height: width,
+              backgroundColor: gridItemsBgColors[i]
+            }]}
+          >
+            <Text style={styles.text}>{i}</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
     );
   }
+
+  return grids;
+}
+
+const Grid = (props) =>  {
+
+  return (
+    <View style={styles.gridRow}>
+      {_renderItems(props)}
+    </View>
+  );
+
 };
+
+export default Grid;

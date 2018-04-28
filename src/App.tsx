@@ -21,6 +21,8 @@ interface Props {};
 
 interface State {
   gridWidth: number;
+  colorSequence: Array<string>;
+  gridItemsBgColors: Array<string>;
 };
 
 export default class App extends Component<Props, State> {
@@ -31,9 +33,11 @@ export default class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    // set the initial gridWidth in the app state
+    // set the initial state
     this.state = {
-      gridWidth: 0
+      gridWidth: 0, // holds current gridWidth
+      colorSequence: Colors.sequence, // holds available colorSequence
+      gridItemsBgColors:  Colors.sequence // holds current available Grid Items background colors
     }
   }
 
@@ -58,6 +62,23 @@ export default class App extends Component<Props, State> {
     this.setState({ gridWidth });
   }
 
+  _handleGridItemClicked = (index: number) => {
+    let nextState = this.state;
+    const { gridItemsBgColors } = nextState;
+
+    if (gridItemsBgColors[index+1]) {
+      gridItemsBgColors[index] = gridItemsBgColors[index+1];
+      nextState = Object.assign({}, this.state, { gridItemsBgColors: gridItemsBgColors });
+    }
+
+    this.setState(nextState);
+  }
+
+  _handleSetGridItemsBgColor = (gridItemsBgColors) => {
+    let nextState = Object.assign({}, this.state, { gridItemsBgColors: gridItemsBgColors });
+    this.setState(nextState);
+  }
+
   render() {
     return (
       <ScrollView
@@ -69,6 +90,10 @@ export default class App extends Component<Props, State> {
           rows={this.rows}
           cols={this.cols}
           width={this.state.gridWidth}
+          colorSequence={this.state.colorSequence}
+          gridItemsBgColors={this.state.gridItemsBgColors}
+          setGridItemsBgColor={this._handleSetGridItemsBgColor}
+          onItemClick={this._handleGridItemClicked}
         />
 
       </ScrollView>
