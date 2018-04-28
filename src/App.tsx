@@ -6,9 +6,9 @@
  * https://github.com/emin93/react-native-template-typescript
  */
 import React, { Component } from 'react';
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
-import { Grid } from './components';
+import { Dimensions, ScrollView, StyleSheet } from 'react-native';
 
+import { Grid } from './components';
 import { Colors } from './constants';
 
 const styles = StyleSheet.create({
@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
 interface Props {};
 
 interface State {
-  gridWidth: number,
-  colorSequence: Array<string>
+  gridWidth: number;
 };
 
 export default class App extends Component<Props, State> {
@@ -34,8 +33,7 @@ export default class App extends Component<Props, State> {
 
     // set the initial gridWidth in the app state
     this.state = {
-      gridWidth: 0,
-      colorSequence: Colors.sequence
+      gridWidth: 0
     }
   }
 
@@ -50,24 +48,14 @@ export default class App extends Component<Props, State> {
 
     /**
      * Re-calculate each grid size
-     * Since we're giving the grid items a margin of 2, that adds an extra width of (2 * num of rows)
+     * Since we're giving the grid items a margin of 2, that adds an extra width of (2 * num of columns)
      * 
      * Subtract this extra from the current width to get the actual width we're working with
-     * Divide the result by the number of rows
+     * Divide the result by the number of columns
      */
-    const gridWidth = Math.round(width - (this.rows * 2)) / this.rows;
+    const gridWidth = Math.round(width - (this.cols * 2)) / this.cols;
     // update the gridWidth in the state for use
     this.setState({ gridWidth });
-  }
-
-  _handleGridItemClicked = (index: number) => {
-    const colorSequence = this.state.colorSequence;
-
-    if (colorSequence[index+1]) {
-      colorSequence[index] = colorSequence[index+1];
-    }
-
-    this.setState({ colorSequence })
   }
 
   render() {
@@ -78,11 +66,9 @@ export default class App extends Component<Props, State> {
       >
 
         <Grid
-          rows={7}
-          cols={7}
+          rows={this.rows}
+          cols={this.cols}
           width={this.state.gridWidth}
-          colors={this.state.colorSequence}
-          onItemClick={this._handleGridItemClicked}
         />
 
       </ScrollView>
