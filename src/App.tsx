@@ -49,7 +49,6 @@ export default class App extends Component<Props, State> {
   _handleLayoutChanged = () => {
     // get current width
     const width = Dimensions.get('window').width;
-    console.log('Width: ', width);
 
     /**
      * Re-calculate each grid size
